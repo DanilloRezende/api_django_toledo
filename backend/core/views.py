@@ -26,10 +26,12 @@ def lote_detail(request, pk):
 def lote_create(request):
     if request.body:
         data = json.loads(request.body)
+        print(data) 
         try:
             get_id = data["id"]
         except:
             get_id = None
+        print(data) 
         try:
             get_lote = data["batch"]
         except:
