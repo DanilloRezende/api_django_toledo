@@ -2,21 +2,21 @@ from django.db import models
 
 
 class Lote(models.Model):
-    id = models.IntegerField('Id', primary_key=True)
-    production_date = models.CharField('Data de produção', max_length=30, null=True, blank=True)
-    terminal = models.IntegerField('Terminal', default=0, null=True, blank=True)
-    sequencial = models.IntegerField('Sequencial', default=0, null=True, blank=True)
-    batch = models.IntegerField('Lote', default=0, null=True, blank=True)
-    type = models.CharField('Tipo', max_length=30, null=True, blank=True)
-    liquid = models.IntegerField('Líquido', default=0, null=True, blank=True)
-    tara = models.IntegerField('tara', default=0, null=True, blank=True)
-    unit_of_measurement = models.CharField('Unidade de Medida', max_length=30, null=True, blank=True)
-    client = models.CharField('Cliente', max_length=30, null=True, blank=True)
-    product_number = models.IntegerField('Número do Produto', default=0, null=True, blank=True)
-    product_name = models.CharField('Nome do Produto', max_length=30, null=True, blank=True)
-    sub_total = models.IntegerField('SubTotal', default=0, null=True, blank=True)
-    total = models.IntegerField('Total', default=0, null=True, blank=True)
-    message = models.CharField('Mensagem', max_length=30, null=True, blank=True)
+    id = models.IntegerField('id', primary_key=True)
+    production_date = models.DateTimeField('Data de produção', null=True, blank=True, default=None)
+    terminal = models.IntegerField('Terminal',  null=True, blank=True, default=None)
+    sequencial = models.IntegerField('Sequencial',  null=True, blank=True, default=None)
+    batch = models.IntegerField('Lote',  null=True, blank=True, default=None)
+    type = models.CharField('Tipo', max_length=30, null=True, blank=True, default=None)
+    liquid = models.FloatField('Líquido',  null=True, blank=True, default=None)
+    tara = models.FloatField('tara',  null=True, blank=True, default=None)
+    unit_of_measurement = models.CharField('Unidade de Medida', max_length=30, null=True, blank=True, default=None)
+    client = models.CharField('Cliente', max_length=30, null=True, blank=True, default=None)
+    product_number = models.IntegerField('Número do Produto',  null=True, blank=True, default=None)
+    product_name = models.CharField('Nome do Produto', max_length=30, null=True, blank=True, default=None)
+    sub_total = models.FloatField('SubTotal',  null=True, blank=True, default=None)
+    total = models.FloatField('Total', null=True, blank=True, default=None)
+    message = models.CharField('Mensagem', max_length=30, null=True, blank=True, default=None)
 
 
 
@@ -50,11 +50,11 @@ class Lote(models.Model):
 
 class events(models.Model):
     eventID = models.IntegerField('eventID', primary_key=True)
-    terminal = models.IntegerField('Terminal', default=0, null=True, blank=True)
-    dateTime = models.CharField('Data do Evento', max_length=30, null=True, blank=True)
-    evtType = models.IntegerField('evtType', default=0, null=True, blank=True)
-    evtCode = models.IntegerField('evtCode', null=True, blank=True)
-    evtMessage = models.CharField('evtMessage',max_length=30, default=0, null=True, blank=True)
+    terminal = models.IntegerField('Terminal', null=True, blank=True, default=None)
+    dateTime = models.DateTimeField ('Data do Evento', null=True, blank=True, default=None)
+    evtType = models.IntegerField('evtType', null=True, blank=True, default=None)
+    evtCode = models.IntegerField('evtCode', null=True, blank=True, default=None)
+    evtMessage = models.CharField('evtMessage',max_length=300, null=True, blank=True, default=None)
  
 
     class Meta:
@@ -63,7 +63,7 @@ class events(models.Model):
         verbose_name_plural = 'Eventos'
 
     def __str__(self):
-        return f'events {self.id}'
+        return f'events {self.eventID}'
 
     def to_dict(self):
         return{
@@ -78,17 +78,17 @@ class events(models.Model):
 
 class Bulk_Batchs(models.Model):
     batchID = models.IntegerField('LoteID', primary_key=True)
-    terminal = models.CharField('Terminal', max_length=30, null=True, blank=True)
+    terminal = models.IntegerField('Terminal', null=True, blank=True, default=None)
     batchStatus = models.IntegerField('Status do Lote', default=0, null=True, blank=True)
-    userField1 = models.IntegerField('userField1', default=0, null=True, blank=True)
-    userField2 = models.IntegerField('userField2', default=0, null=True, blank=True)
-    userField3 = models.CharField('userField3', max_length=30, null=True, blank=True)
-    userField4 = models.IntegerField('userField4', default=0, null=True, blank=True)
-    userField5 = models.IntegerField('userField5', default=0, null=True, blank=True)
-    userField6 = models.CharField('userField6', max_length=30, null=True, blank=True)
+    userField1 = models.IntegerField('userField1', default=None, null=True, blank=True)
+    userField2 = models.IntegerField('userField2', default=None, null=True, blank=True)
+    userField3 = models.IntegerField('userField3', default=None, null=True, blank=True)
+    userField4 = models.IntegerField('userField4', default=None, null=True, blank=True)
+    userField5 = models.IntegerField('userField5', default=None, null=True, blank=True)
+    userField6 = models.IntegerField('userField6', default=None, null=True, blank=True)
     prodNumberList = models.CharField('Número de Produção', max_length=30, null=True, blank=True)
     subtotNumberList = models.CharField('SubTotal', max_length=30, null=True, blank=True)
-    targetValueList = models.IntegerField('Valor', default=0, null=True, blank=True)
+    targetValueList = models.CharField('Valor', max_length=300, default=0, null=True, blank=True)
   
 
 
@@ -98,7 +98,7 @@ class Bulk_Batchs(models.Model):
         verbose_name_plural = 'Bulk padrão de Lotes'
 
     def __str__(self):
-        return f'LoteID {self.id}'
+        return f'LoteID {self.batchID}'
 
     def to_dict(self):
         return{
@@ -117,24 +117,25 @@ class Bulk_Batchs(models.Model):
                         
                     }
 
+
 class Bulk_Weigths(models.Model):
     weightID = models.IntegerField('weightID', primary_key=True)
-    dateTime = models.CharField('Data', max_length=30, null=True, blank=True)
-    opType = models.CharField('Tipo de OP', max_length=30, default=0, null=True, blank=True)
-    terminal = models.IntegerField('Terminal', default=0, null=True, blank=True)
-    net = models.FloatField('Net', default=0, null=True, blank=True)
-    tare = models.FloatField('Tara', max_length=30, null=True, blank=True)
-    wtUnit = models.CharField('Unidade', max_length=30, default=0, null=True, blank=True)
-    stepNumber = models.IntegerField('stepNumber', default=0, null=True, blank=True)
-    subtotNumber = models.IntegerField('subtotNumber', null=True, blank=True)
-    prodNumber = models.IntegerField('Número de Produção', null=True, blank=True)
-    stepTotal = models.FloatField('stepTotal', max_length=30, null=True, blank=True)
-    subtotTotal = models.CharField('SubTotal', max_length=30, default=0, null=True, blank=True)
-    prodTotal = models.FloatField('Produção Total', default=0, null=True, blank=True)
-    grandTotal = models.FloatField('grandTotal', default=0, null=True, blank=True)
-    flow = models.FloatField('Fluxo', default=0, null=True, blank=True)
-    flowUnit = models.CharField('flowUnit', max_length=30, default=0, null=True, blank=True)
-    batchID = models.IntegerField('LoteID', default=0, null=True, blank=True)
+    dateTime = models.CharField('Data', max_length=30, null=True, blank=True, default=None)
+    opType = models.CharField('Tipo de OP', max_length=30,  null=True, blank=True, default=None)
+    terminal = models.IntegerField('Terminal',  null=True, blank=True, default=None)
+    net = models.FloatField('Net',  null=True, blank=True, default=None)
+    tare = models.FloatField('Tara', max_length=30, null=True, blank=True, default=None)
+    wtUnit = models.CharField('Unidade', max_length=30,  null=True, blank=True, default=None)
+    stepNumber = models.IntegerField('stepNumber',default=None, null=True, blank=True)
+    subtotNumber = models.IntegerField('subtotNumber', default=None, null=True, blank=True)
+    prodNumber = models.IntegerField('Número de Produção', null=True, blank=True, default=None)
+    stepTotal = models.FloatField('stepTotal', max_length=30, null=True, blank=True, default=None)
+    subtotTotal = models.CharField('SubTotal', max_length=30, null=True, blank=True, default=None)
+    prodTotal = models.FloatField('Produção Total', null=True, blank=True, default=None)
+    grandTotal = models.FloatField('grandTotal', null=True, blank=True, default=None)
+    flow = models.FloatField('Fluxo', null=True, blank=True, default=None)
+    flowUnit = models.CharField('flowUnit', max_length=30, null=True, blank=True, default=None)
+    batchID = models.IntegerField('LoteID', null=True, blank=True, default=None)
   
 
 
@@ -144,7 +145,7 @@ class Bulk_Weigths(models.Model):
         verbose_name_plural = 'Bulk peso de Lotes'
 
     def __str__(self):
-        return f'weightID {self.id}'
+        return f'weightID {self.weightID}'
 
     def to_dict(self):
         return{

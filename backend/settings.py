@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 from decouple import Csv, config
+from django.conf.locale.pt_BR import formats as br_formats
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,7 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -117,14 +118,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-DATE_INPUT_FORMATS = [
-    '%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y', # '2006-10-25', '10/25/2006', '10/25/06'
-    '%b %d %Y', '%b %d, %Y',            # 'Oct 25 2006', 'Oct 25, 2006'
-    '%d %b %Y', '%d %b, %Y',            # '25 Oct 2006', '25 Oct, 2006'
-    '%B %d %Y', '%B %d, %Y',            # 'October 25 2006', 'October 25, 2006'
-    '%d %B %Y', '%d %B, %Y',            # '25 October 2006', '25 October, 2006'
+DATE_INPUT_FORMATS = [    
+    '%d/%m/%Y %Hh%Mm'                   # '25/10/2006 12h36m'
 ]
 
+DATETIME_INPUT_FORMATS = [
+    "%d/%m/%Y %H:%M:%S",  # '25/10/2006 14:30:59'
+    "%d/%m/%Y %H:%M:%S.%f",  # '25/10/2006 14:30:59.000200'
+    "%d/%m/%Y %H:%M",  # '25/10/2006 14:30'
+    "%d/%m/%y %H:%M:%S",  # '25/10/06 14:30:59'
+    "%d/%m/%y %H:%M:%S.%f",  # '25/10/06 14:30:59.000200'
+    "%d/%m/%y %H:%M",  # '25/10/06 14:30'
+    "%d/%m/%Y %Hh%Mm", # '25/10/2006 12h36m'
+]
 LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'

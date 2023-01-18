@@ -1,5 +1,6 @@
 import json
 from datetime import date, datetime
+from time import strftime
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -27,9 +28,10 @@ def lote_detail(request, pk):
 def lote_create(request):
     if request.body:
         data = json.loads(request.body)
+        get_id = data["id"]
         get_lote = data["batch"]
         get_production_date = data["production_date"]
-        formatted_date = datetime.strptime(get_production_date, '%b %d %Y %I:%M%p' ).strftime('%d/%m/%Y')
+        formatted_date = datetime.strptime(get_production_date, '%b %d %Y %I:%M%p')
         get_terminal = data["terminal"]
         get_sequencial = data["sequencial"]
         get_type = str(data["type"]).rstrip()
@@ -45,6 +47,7 @@ def lote_create(request):
 
 
         Lote.objects.create(
+            id = get_id,
             batch = get_lote,
             production_date = formatted_date,
             terminal = get_terminal,
@@ -72,7 +75,7 @@ def bulk_events(request):
         get_eventID = data["eventID"]
         get_terminal = data["terminal"]
         get_dateTime = data["dateTime"]
-        formatted_date = datetime.strptime(get_dateTime, '%b %d %Y %I:%M%p' ).strftime('%d/%m/%Y')
+        formatted_date = datetime.strptime(get_dateTime, '%b %d %Y %I:%M%p')
         get_evtType = data["evtType"]
         get_evtCode = data["evtCode"]
         get_evtMessage = str(data["evtMessage"]).rstrip()
@@ -96,14 +99,17 @@ def bulk_STD_batches(request):
     if request.body:
         data = json.loads(request.body)
         get_batchID = data["batchID"]
-        get_terminal = data["terminal"]
+        try:
+            get_terminal = data["terminal"]
+        except:
+            get_terminal = ''
         get_batchStatus = data["batchStatus"]
-        get_userField1 = str(data["userField1"]).rstrip()
-        get_userField2 = str(data["userField2"]).rstrip()
-        get_userField3 = str(data["userField3"]).rstrip()
-        get_userField4 = str(data["userField4"]).rstrip()
-        get_userField5 = str(data["userField5"]).rstrip()
-        get_userField6 = str(data["userField6"]).rstrip()
+        get_userField1 = data["userField1"]
+        get_userField2 = data["userField2"]
+        get_userField3 = data["userField3"]
+        get_userField4 = data["userField4"]
+        get_userField5 = data["userField5"]
+        get_userField6 = data["userField6"]
         get_prodNumberList = str(data["prodNumberList"]).rstrip()
         get_subtotNumberList = str(data["subtotNumberList"]).rstrip()
         get_targetValueList = str(data["targetValueList"]).rstrip()
@@ -135,22 +141,22 @@ def bulk_weigths(request):
         data = json.loads(request.body)
         get_weightID = data["weightID"]
         get_dateTime = data["dateTime"]
-        formatted_date = datetime.strptime(get_dateTime, '%b %d %Y %I:%M%p' ).strftime('%d/%m/%Y')
-        get_opType = data["opType"]
-        get_terminal = str(data["terminal"]).rstrip()
+        formatted_date = datetime.strptime(get_dateTime, '%b %d %Y %I:%M%p')
+        get_opType = str(data["opType"]).rstrip()
+        get_terminal = data["terminal"]
         get_net = float(data["net"])
-        get_tare = str(data["tare"]).rstrip()
+        get_tare = float(data["tare"])
         get_wtUnit = str(data["wtUnit"]).rstrip()
-        get_stepNumber = str(data["stepNumber"]).rstrip()
-        get_subtotNumber = str(data["subtotNumber"]).rstrip()
-        get_prodNumber = str(data["prodNumber"]).rstrip()
+        get_stepNumber = data["stepNumber"]
+        get_subtotNumber = data["subtotNumber"]
+        get_prodNumber = data["prodNumber"]
         get_stepTotal = float(data["stepTotal"])
         get_subtotTotal = str(data["subtotTotal"]).rstrip()
         get_prodTotal = float(data["prodTotal"])
         get_grandTotal = float(data["grandTotal"])
         get_flow = float(data["flow"])
         get_flowUnit = str(data["flowUnit"]).rstrip()
-        get_batchID = str(data["batchID"]).rstrip()
+        get_batchID = data["batchID"]
        
 
 
