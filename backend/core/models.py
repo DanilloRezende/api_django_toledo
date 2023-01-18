@@ -78,8 +78,8 @@ class events(models.Model):
 
 class Bulk_Batchs(models.Model):
     batchID = models.IntegerField('LoteID', primary_key=True)
-    terminal = models.IntegerField('Terminal', null=True, blank=True, default=None)
-    batchStatus = models.IntegerField('Status do Lote', default=0, null=True, blank=True)
+    terminal = models.IntegerField('Terminal', default=None, null=True, blank=True)
+    batchStatus = models.IntegerField('Status do Lote', default=None, null=True, blank=True)
     userField1 = models.IntegerField('userField1', default=None, null=True, blank=True)
     userField2 = models.IntegerField('userField2', default=None, null=True, blank=True)
     userField3 = models.IntegerField('userField3', default=None, null=True, blank=True)
