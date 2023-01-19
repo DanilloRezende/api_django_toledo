@@ -40,7 +40,7 @@ def lote_create(request):
             get_production_date = data["production_date"]
         except:
             get_production_date = datetime.now().strftime("%Y-%m-%d %H:%M")
-        formatted_date = datetime.strptime(get_production_date, "%Y-%m-%d %H:%M")     
+        formatted_date = datetime.strptime(get_production_date, "%b %d %Y %I:%M%p")     
      
         try:
             get_terminal = data["terminal"]
@@ -118,6 +118,8 @@ def lote_create(request):
 def bulk_events(request):
     if request.body:
         data = json.loads(request.body)
+        print(type(data))
+        print(data)
         try:
             get_eventID = data["eventID"]
         except:
@@ -130,7 +132,7 @@ def bulk_events(request):
             get_dateTime = data["dateTime"]
         except:
             get_dateTime = datetime.now().strftime("%Y-%m-%d %H:%M")
-        formatted_date = datetime.strptime(get_dateTime, "%Y-%m-%d %H:%M")
+        formatted_date = datetime.strptime(get_dateTime, "%b %d %Y %I:%M%p")
         try:
             get_evtType = data["evtType"]
         except:
@@ -162,6 +164,8 @@ def bulk_events(request):
 def bulk_STD_batches(request):
     if request.body:
         data = json.loads(request.body)
+        print(type(data))
+        print(data)
         get_batchID = data["batchID"]
         try:
             get_terminal = data["terminal"]
@@ -246,7 +250,7 @@ def bulk_weigths(request):
             get_dateTime = data["dateTime"]
         except:
             get_dateTime = datetime.now().strftime("%Y-%m-%d %H:%M")
-        formatted_date = datetime.strptime(get_dateTime, "%Y-%m-%d %H:%M")
+        formatted_date = datetime.strptime(get_dateTime, "%b %d %Y %I:%M%p")
         try:        
             get_opType = str(data["opType"]).rstrip()
         except:
