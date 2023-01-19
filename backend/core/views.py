@@ -163,7 +163,8 @@ def bulk_events(request):
 @require_http_methods(['POST'])
 def bulk_STD_batches(request):
     if request.body:
-        data = json.loads(request.body)
+        data1 = json.loads(request.body)
+        data = data1[0]
         print(type(data))
         print(data)
         get_batchID = data["batchID"]
